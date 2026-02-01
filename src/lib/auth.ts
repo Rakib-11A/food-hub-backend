@@ -114,6 +114,8 @@ export const auth = betterAuth({
     baseURL: config.betterAuthUrl,
     socialProviders: {
         google: {
+            prompt: "select_account consent",
+            accessType: "offline",
             clientId: config.googleClientId as string,
             clientSecret: config.googleClientSecret as string,
         }
