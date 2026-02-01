@@ -1,6 +1,6 @@
 import app from './app';
-import { config } from './src/config/env';
-import { prisma } from './src/lib/prisma'
+import { config } from './config/env';
+import { prisma } from './lib/prisma';
 
 const startServer = async () => {
   try {
@@ -10,7 +10,7 @@ const startServer = async () => {
     // Start server
     app.listen(config.port, () => {
       console.log(`🚀 Server running on port ${config.port}`);
-      console.log(`🔗 API URL: http://localhost:${config.port}/api/`);
+      console.log(`🔗 API URL: http://localhost:${config.port}`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);
