@@ -47,7 +47,6 @@ export const authenticate = (...roles: UserRole[]) => {
                 role: session.user.role,
                 emailVerified: session.user.emailVerified
             }
-            console.log(session.user.name, session.user.role, session.user.email)
 
             if(roles.length && !roles.includes(req.user.role as UserRole)){
                 return res.status(403).json({
@@ -56,7 +55,6 @@ export const authenticate = (...roles: UserRole[]) => {
                 });
             }
             console.log(session.user.role);
-            console.log(`Mr. ${session.user.role} You are successfully authenticated.....`)
             next();
 
         }catch(error){

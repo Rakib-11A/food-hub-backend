@@ -2,14 +2,16 @@ import { Request, Response } from "express";
 import { prisma } from "../../lib/prisma";
 import { Meal } from "../../../generated/prisma/client";
 
-const createMeal = async(data: Omit<Meal, "id" | "createdAt" | "updatedAt"> ,providerProfileId: string) => {
-    const meal = await prisma.meal.create({
+type MealCreateInput = Omit<Meal, "id" | "createdAt" | "updatedAt">;
+type MealUpdateInput = Partial<Pick<Meal, "name" | "description" | "price" | "image" | "dietaryTags" | "categoryId" | "isAvailable">>;
+
+const createMeal = async (data: MealCreateInput, providerProfileId: string) => {
+    return await prisma.meal.create({
         data: {
             ...data,
-            providerProfileId: providerProfileId,
+            providerProfileId
         }
     })
-    return meal;
 }
 
 export const mealService = {
