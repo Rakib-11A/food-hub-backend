@@ -12,6 +12,41 @@ const getCategories = async () => {
     return list;
 }
 
+const createCategory = async (data: {
+    name: string;
+    slug?: string;
+    description?: string;
+    image?: string;
+    sortOrder?: number;
+}) => {
+    return await prisma.category.create({data})
+}
+
+const updateCategory = async (id: string, data: {
+    name?:string;
+    slug?: string;
+    description?: string;
+    image?: string;
+    sortOrder?: number;
+    isActive?: boolean;
+}) => {
+    return await prisma.category.update({
+        where: {
+            id
+        },
+        data
+    })
+}
+
+const deleteCategory = async (id: string) => {
+    return await prisma.category.delete({
+        where: { id }
+    })
+}
+
 export const categoryService = {
-    getCategories
+    getCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory
 }

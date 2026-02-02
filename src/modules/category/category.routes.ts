@@ -7,4 +7,10 @@ const router = Router();
 
 router.get('/', authenticate(UserRole.ADMIN, UserRole.PROVIDER, UserRole.CUSTOMER), categoryController.getCategories);
 
+router.post('/', authenticate(UserRole.ADMIN), categoryController.createCategory);
+
+router.put("/:id", authenticate(UserRole.ADMIN), categoryController.updateCategory);
+
+router.delete("/:id", authenticate(UserRole.ADMIN), categoryController.deleteCategory);
+
 export default router;
