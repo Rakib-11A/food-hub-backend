@@ -72,9 +72,74 @@ async function seedMeals() {
   console.log("Meals seeded.");
 }
 
+const ADMIN_EMAIL = "admin@foodhub.com";
+
+async function seedAdmin() {
+  const updated = await prisma.user.updateMany({
+    where: { email: ADMIN_EMAIL },
+    data: { role: "ADMIN" },
+  });
+  if (updated.count > 0) {
+    console.log(`Admin seeded: ${ADMIN_EMAIL} is now ADMIN.`);
+  } else {
+    console.log(
+      `Admin skip: No user with email "${ADMIN_EMAIL}". Sign up with this email first, then run seed again to promote to ADMIN.`
+    );
+  }
+}
+
+const reviewComments: string[] = [
+  "খুবই স্বাদু এবং ফ্রেশ। পরবর্তীতেও অর্ডার দেব।",
+  "দামের তুলনায় পরিমাণ ভালো। রিকমেন্ড করছি।",
+  "দেরিতে ডেলিভারি হলেও খাবার গরম ছিল।",
+  "পুরান ঢাকার আসল স্বাদ পেয়েছি।",
+  "বোরহানি একদম পারফেক্ট।",
+  "খাসির মাংস নরম এবং মশলাদার।",
+  "পরিবেশন ভালো। প্যাকেজিং ঠিক আছে।",
+];
+
+async function seedReviews() {
+  const users = await prisma.user.findMany({ take: 8, select: { id: true } });
+  const meals = await prisma.meal.findMany({ take: 15, select: { id: true } });
+
+  if (users.length === 0 || meals.length === 0) {
+    console.log(
+      "Reviews skipped: Need at least one user and one meal. Sign up and ensure meals are seeded, then run seed again."
+    );
+    return;
+  }
+
+  let created = 0;
+  for (const user of users) {
+    for (const meal of meals) {
+      if (created >= 25) break;
+      const rating = 3 + Math.floor(Math.random() * 3);
+      const comment = reviewComments[Math.floor(Math.random() * reviewComments.length)];
+      try {
+        await prisma.review.create({
+          data: {
+            userId: user.id,
+            mealId: meal.id,
+            rating,
+            comment,
+          },
+        });
+        created++;
+      } catch (e: unknown) {
+        const err = e as { code?: string };
+        if (err.code !== "P2002") console.error("Review create error:", (e as Error).message);
+      }
+    }
+    if (created >= 25) break;
+  }
+  console.log(`Reviews seeded: ${created} review(s) created.`);
+}
+
 async function main() {
   await seedCategories();
   await seedMeals();
+  await seedAdmin();
+  await seedReviews();
 }
 
 main()

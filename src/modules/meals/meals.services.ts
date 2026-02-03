@@ -105,21 +105,17 @@ const updateMeal = async ( id: string, data: MealUpdateInput, providerProfileId:
     });
 }
 
-const deleteMeal = async( id: string, providerProfileId: string ) => {
-    const exists = await prisma.meal.findFirst({
-        where: {
-            id
-        }
-    });
-    if(!exists){
-        throw Object.assign(new Error("Meal not found"), { code: "P2025"});
-    }
-    return await prisma.meal.delete({
-        where: {
-            id
-        }
-    });
-}
+const deleteMeal = async (id: string, providerProfileId: string) => {
+  const exists = await prisma.meal.findFirst({
+    where: { id, providerProfileId },
+  });
+  if (!exists) {
+    throw Object.assign(new Error("Meal not found"), { code: "P2025" });
+  }
+  return await prisma.meal.delete({
+    where: { id },
+  });
+};
 export const mealService = {
     createMeal,
     getMeals,

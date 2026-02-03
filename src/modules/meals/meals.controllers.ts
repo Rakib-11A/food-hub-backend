@@ -67,22 +67,16 @@ const getMealById = asyncHandler( async (req: Request, res: Response) => {
 const updateMeal = asyncHandler(async (req: Request, res: Response) => {
   const id = req.params.id as string;
   const user = req?.user;
-  console.log({user})
-  if(!user){
+  if (!user) {
     return res.status(401).json({
       success: false,
-      message: "Unauthorized!"
+      message: "Unauthorized!",
     });
   }
   const profile = await prisma.providerProfile.findUnique({
-    where:{
-      userId: user?.id
-    }
+    where: { userId: user.id },
   });
-
-  console.log(id, user, req.body);
-  console.log( profile?.id);
-  if(!profile){
+  if (!profile) {
     return res.status(400).json({
       success: false,
       message: "Create a provider profile first"
@@ -112,7 +106,7 @@ const deleteMeal = asyncHandler(async (req: Request, res: Response) => {
   if(!profile){
     return res.status(400).json({
       success: false,
-      message: "Create a provider profiile first"
+      message: "Create a provider profile first"
     });
   }
   const id = req.params.id as string;

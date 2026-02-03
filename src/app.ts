@@ -10,10 +10,17 @@ import { authenticate } from './middlewares/auth.middleware';
 
 const app: Application = express();
 
-// Middlewares
+// Middlewares: allow one or more origins (comma-separated APP_URL for production + Vercel previews)
+const allowedOrigins = config.appUrl
+  ? config.appUrl.split(",").map((o) => o.trim()).filter(Boolean)
+  : ["http://localhost:3000"];
 app.use(cors({
-  origin: config.appUrl || "http://localhost:3000",
-  credentials: true
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some((o) => origin?.endsWith(".vercel.app")))
+      cb(null, true);
+    else cb(null, false);
+  },
+  credentials: true,
 }));
 
 app.use(express.json());
