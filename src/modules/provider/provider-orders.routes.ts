@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { mealController } from "./meals.controllers";
 import { authenticate } from "../../middlewares/auth.middleware";
 import { UserRole } from "../../interfaces/role.interface";
 
 const router = Router();
 
-router.get('/', mealController.getMeals);
-router.get('/:id', mealController.getMealById);
+router.use(authenticate(UserRole.PROVIDER));
+
+// router.get("/", orderController.getProviderOrders);
+// router.get("/", orderController.updateOrderStatus);
 
 export default router;
