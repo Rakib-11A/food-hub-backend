@@ -1,4 +1,4 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
 
 const createReview = async (
     data: {
@@ -36,3 +36,7 @@ const getReviewsByMealId = async (mealId: string) => {
   });
 };
 
+export const reviewService = {
+  createReview,
+  getReviewsByMealId,
+};
