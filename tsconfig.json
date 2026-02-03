@@ -1,7 +1,7 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
 
     // Environment Settings
@@ -43,6 +43,6 @@
     "ignoreDeprecations": "5.0",
     "skipLibCheck": true,
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "generate/prisma"]
+  "include": ["src/**/*", "generated/prisma/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
