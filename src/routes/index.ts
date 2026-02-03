@@ -7,7 +7,7 @@ import providerMealsRoutes from "../modules/provider/provider-meals.routes";
 import providerOrdersRoutes from "../modules/provider/provider-orders.routes";
 import ordersRoutes from "../modules/orders/orders.routes";
 import reviewsRoutes from "../modules/reviews/reviews.routes";
-import adminRoutes from "../modules/admin/admin.routes";
+import adminRoutes from "../modules/admin";
 
 const router = Router();
 

@@ -1,84 +1,40 @@
 import { prisma } from "../../lib/prisma";
 
-const getProviders = async () => {
-    return await prisma.providerProfile.findMany({
-        where: { isActive: true},
-        include: { _count: { select: { meals: true }}},
-        orderBy: { createdAt: "desc" }
+export const providerService = {
+  async getProviders() {
+    return prisma.providerProfile.findMany({
+      include: { user: { select: { name: true, email: true } } },
     });
-};
-
-const getProviderById = async ( id: string ) => {
-    return await prisma.providerProfile.findUnique({
-        where: { id, isActive: true},
-        include: {
-            user: { 
-               select: {
-                name: true,
-                email: true,
-               }
-            },
-            meals: {
-                where: {
-                    isAvailable: true
-                },
-                include: {
-                    category: {
-                        select: {
-                            id: true,
-                            name: true,
-                        }
-                    }
-                }
-            }
-        }
-    })
-}
-
-const createProviderProfile = async (
+  },
+  async getProviderById(id: string) {
+    return prisma.providerProfile.findUnique({
+      where: { id },
+      include: { user: { select: { name: true, email: true } } },
+    });
+  },
+  async createProviderProfile(
     userId: string,
     data: {
-        businessName: string;
-        description?: string;
-        address?: string;
-        phone?: string;
-        logo?: string
+      businessName: string;
+      description?: string;
+      address?: string;
+      phone?: string;
+      logo?: string;
     }
-) => {
-    return await prisma.providerProfile.create({
-        data: {
-            userId,
-            ...data
-        }
-    })
-}
-
-const updateProviderProfile = async (
-    userId: string,
-    data: {
-        businessName?: string;
-        description?: string;
-        address?: string;
-        phone?: string;
-        logo?: string;
-        isActive?: boolean;
-    }
-) => {
-    const profile = await prisma.providerProfile.findUnique({ where: { userId }});
-    if(!profile){
-        throw Object.assign(new Error("Provider profile is not found"), { code: 'P2025'});
+  ) {
+    return prisma.providerProfile.create({
+      data: { userId, ...data },
+    });
+  },
+  async updateProviderProfile(userId: string, data: Record<string, unknown>) {
+    const allowed = ["businessName", "description", "address", "phone", "logo"] as const;
+    const update: Record<string, string> = {};
+    for (const key of allowed) {
+      if (data[key] !== undefined) update[key] = String(data[key]);
     }
     return prisma.providerProfile.update({
-        where: {
-            userId
-        },
-        data
-    })
-}
-
-export const providerService = {
-    getProviders,
-    getProviderById,
-    createProviderProfile,
-    updateProviderProfile
-}
+      where: { userId },
+      data: update as { businessName?: string; description?: string; address?: string; phone?: string; logo?: string },
+    });
+  },
+};

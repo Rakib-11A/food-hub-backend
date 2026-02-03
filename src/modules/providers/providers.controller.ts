@@ -16,6 +16,9 @@ const getProviders = asyncHandler(async (req: Request, res: Response) => {
 const getProviderById = asyncHandler(async(req: Request, res: Response) => {
     const id = req.params.id as string;
     const result = await providerService.getProviderById(id);
+    if (!result) {
+        return res.status(404).json({ success: false, message: "Provider not found" });
+    }
     res.status(200).json({
         success: true,
         message: "Provider fetched",

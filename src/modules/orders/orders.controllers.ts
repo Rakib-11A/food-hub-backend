@@ -1,76 +1,49 @@
 import { Request, Response } from "express";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { orderService } from "./orders.services";
-import { success } from "better-auth";
-import { prisma } from "../../lib/prisma";
-
-const createOrder = asyncHandler( async (req: Request, res: Response) => {
-    const user = req.user;
-    if (!user) return res.status(401).json({ success: false, message: "Unauthorized!" });
-    const { providerProfileId, deliveryAddress, contactPhone, paymentMethod, notes, items } = req.body;
-    if (!providerProfileId || !deliveryAddress || !items?.length) {
-    return res.status(400).json({ success: false, message: "providerProfileId, deliveryAddress and items required" });
-  }
-  const result = await orderService.createOrder({
-    customerId: user.id,
-    providerProfileId,
-    deliveryAddress,
-    contactPhone,
-    paymentMethod: paymentMethod ?? "COD",
-    notes,
-    items,
-  });
-  res.status(200).json({
-    success: true,
-    message: "Order placed",
-    data: result
-  });
-});
-
-const getMyOrders = asyncHandler(async (req: Request, res: Response) => {
-  const user = req.user;
-  if (!user) return res.status(401).json({ success: false, message: "Unauthorized!" });
-  const result = await orderService.getOrdersByCustomerId(user.id);
-  res.status(200).json({ success: true, message: "Orders fetched", data: result });
-});
-
-const getOrderById = asyncHandler(async (req: Request, res: Response) => {
-  const user = req.user;
-  if (!user) return res.status(401).json({ success: false, message: "Unauthorized!" });
-  const id = req.params.id as string;
-  const order = await orderService.getOrderById(id);
-  if (!order) return res.status(404).json({ success: false, message: "Order not found" });
-  if (order.customerId !== user.id) return res.status(403).json({ success: false, message: "Forbidden" });
-  res.status(200).json({ success: true, message: "Order fetched", data: order });
-});
-
-const getProviderOrders = asyncHandler(async (req: Request, res: Response) => {
-  const user = req.user;
-  if (!user) return res.status(401).json({ success: false, message: "Unauthorized!" });
-  const profile = await prisma.providerProfile.findUnique({ where: { userId: user.id } });
-  if (!profile) return res.status(400).json({ success: false, message: "Create a provider profile first" });
-  const result = await orderService.getOrdersByProviderProfileId(profile.id);
-  res.status(200).json({ success: true, message: "Orders fetched", data: result });
-});
-
-const updateOrderStatus = asyncHandler(async (req: Request, res: Response) => {
-  const user = req.user;
-  if (!user) return res.status(401).json({ success: false, message: "Unauthorized!" });
-  const profile = await prisma.providerProfile.findUnique({ where: { userId: user.id } });
-  if (!profile) return res.status(400).json({ success: false, message: "Create a provider profile first" });
-  const id = req.params.id as string;
-  const { status } = req.body;
-  if (!status) return res.status(400).json({ success: false, message: "status required" });
-  const valid = ["PLACED", "PREPARING", "READY", "DELIVERED", "CANCELLED"];
-  if (!valid.includes(status)) return res.status(400).json({ success: false, message: "Invalid status" });
-  const result = await orderService.updateOrderStatus(id, profile.id, status);
-  res.status(200).json({ success: true, message: "Order status updated", data: result });
-});
 
 export const orderController = {
-  createOrder,
-  getMyOrders,
-  getOrderById,
-  getProviderOrders,
-  updateOrderStatus,
+  getMyOrders: asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    const orders = await orderService.getOrdersByCustomerId(user.id);
+    res.status(200).json({ success: true, data: orders });
+  }),
+
+  getOrderById: asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const user = req.user;
+    const isAdmin = user?.role === "ADMIN";
+    const customerId = isAdmin ? undefined : user?.id;
+    const order = await orderService.getOrderById(id, customerId);
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+    res.status(200).json({ success: true, data: order });
+  }),
+
+  createOrder: asyncHandler(async (req: Request, res: Response) => {
+    const user = req.user;
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    const { providerProfileId, deliveryAddress, contactPhone, paymentMethod, notes, items } = req.body;
+    if (!providerProfileId || !deliveryAddress || typeof deliveryAddress !== "string" || !items?.length) {
+      return res.status(400).json({
+        success: false,
+        message: "providerProfileId, deliveryAddress, and items are required",
+      });
+    }
+    const order = await orderService.createOrder(user.id, {
+      providerProfileId,
+      deliveryAddress: deliveryAddress.trim(),
+      contactPhone,
+      paymentMethod,
+      notes,
+      items,
+    });
+    res.status(201).json({ success: true, data: order });
+  }),
 };

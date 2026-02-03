@@ -1,12 +1,15 @@
 import { Router } from "express";
 import { authenticate } from "../../middlewares/auth.middleware";
 import { UserRole } from "../../interfaces/role.interface";
-import { orderController } from "../orders/orders.controllers";
+import { providerOrderController } from "./provider-orders.controllers";
 
 const router = Router();
 
-router.use(authenticate(UserRole.PROVIDER));
-router.get("/", orderController.getProviderOrders);
-router.patch("/:id", orderController.updateOrderStatus);
+router.get("/", authenticate(UserRole.PROVIDER), providerOrderController.getMyOrders);
+router.patch(
+  "/:id",
+  authenticate(UserRole.PROVIDER),
+  providerOrderController.updateOrderStatus
+);
 
 export default router;
