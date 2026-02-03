@@ -10,7 +10,7 @@ import { authenticate } from './middlewares/auth.middleware';
 
 const app: Application = express();
 
-// Middlewares: allow one or more origins (comma-separated APP_URL for production + Vercel previews)
+
 const allowedOrigins = config.appUrl
   ? config.appUrl.split(",").map((o) => o.trim()).filter(Boolean)
   : ["http://localhost:3000"];
