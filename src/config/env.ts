@@ -5,6 +5,7 @@ dotenv.config({ path: path.join(process.cwd(), '.env') });
 
 export const config = {
   port: process.env.PORT || 5000,
+  nodeEnv: process.env.NODE_ENV as string,
   databaseUrl: process.env.DATABASE_URL as string,
   appUrl: process.env.APP_URL as string,
   appUser: process.env.APP_USER as string,
