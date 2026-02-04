@@ -1,9 +1,11 @@
-{  
-  "version": 2,  
+{
+  "version": 2,
   "buildCommand": "npx prisma generate && npm run build",
-  "rewrites": [    
-    {      
-      "source": "/(.*)",      
-      "destination": "/src/app.ts"
-    }  
-]}
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "functions": {
+    "api/index.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}
