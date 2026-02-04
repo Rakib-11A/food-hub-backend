@@ -6,7 +6,7 @@ const startServer = async () => {
   try {
     // Initialize database
     await prisma.$connect();
-
+    console.log("Prisma connected successfully....");
     // Start server
     if(config.nodeEnv !== 'production') {
       app.listen(config.port, () => {
