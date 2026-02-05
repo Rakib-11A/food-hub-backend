@@ -14,11 +14,22 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const trustedOrigins: string[] = config.appUrl
+  ? config.appUrl.split(",").map((o) => o.trim()).filter(Boolean)
+  : ["http://localhost:3000"];
+// Allow all Vercel deployments (production + preview)
+if (!trustedOrigins.some((o) => o.includes("vercel.app"))) {
+  trustedOrigins.push("https://*.vercel.app");
+}
+if (!trustedOrigins.includes("http://localhost:3000")) {
+  trustedOrigins.push("http://localhost:3000");
+}
+
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql", // or "mysql", "postgresql", ...etc
     }),
-    trustedOrigins: [config.appUrl!],
+    trustedOrigins,
     user: {
         additionalFields: {
             role: {
