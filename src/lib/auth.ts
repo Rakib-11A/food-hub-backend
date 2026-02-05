@@ -30,6 +30,14 @@ export const auth = betterAuth({
         provider: "postgresql", // or "mysql", "postgresql", ...etc
     }),
     trustedOrigins,
+    advanced: {
+        // Required for cross-origin: frontend (Vercel) and backend (Render) on different domains.
+        // Browser only sends cookies on cross-site requests when SameSite=None and Secure.
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+        },
+    },
     user: {
         additionalFields: {
             role: {
