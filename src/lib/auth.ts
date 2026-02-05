@@ -119,15 +119,18 @@ export const auth = betterAuth({
                 try {
                     const info = await transporter.sendMail({
                         from: '"Food Hub 🍔" <rakibhasancsepust@gmail.com>',
-                        to: user.email, // Dynamic user email
+                        to: user.email,
                         subject: "Verify your Food Hub account ✔",
-                        text: `Please verify your email by visiting: ${verificationUrl}`, // Plain text fallback
-                        html: htmlTemplate, // The beautiful template from above
+                        text: `Please verify your email by visiting: ${verificationUrl}`,
+                        html: htmlTemplate,
                     });
-
                     console.log("Verification email sent:", info.messageId);
                 } catch (error) {
                     console.error("Failed to send email:", error);
+                    // On Render/hosted envs SMTP is often blocked. Log the link so it can be shared manually.
+                    console.log(
+                        `[VERIFICATION] Email send failed. Manual link for ${user.email}: ${verificationUrl}`
+                    );
                 }
             })();
         },
