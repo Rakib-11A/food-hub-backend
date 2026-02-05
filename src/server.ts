@@ -6,15 +6,11 @@ const startServer = async () => {
   try {
     // Initialize database
     await prisma.$connect();
-    console.log("Prisma connected successfully....");
-    // Start server
-    if(config.nodeEnv !== 'production') {
-      app.listen(config.port, () => {
-        console.log(`🚀 Server running on port ${config.port}`);
-        console.log(`🔗 API URL: http://localhost:${config.port}`);
-      });
-    }
-
+    console.log("Prisma connected successfully.");
+    const port = config.port;
+    app.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    });
   } catch (error) {
     console.error('Failed to start server:', error);
     prisma.$disconnect();

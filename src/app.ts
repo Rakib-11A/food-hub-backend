@@ -16,9 +16,12 @@ const allowedOrigins = config.appUrl
   : ["http://localhost:3000"];
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some((o) => origin?.endsWith(".vercel.app")))
+    if (!origin || allowedOrigins.includes(origin))
       cb(null, true);
-    else cb(null, false);
+    else if (origin?.endsWith(".vercel.app") || origin?.endsWith(".onrender.com"))
+      cb(null, true);
+    else
+      cb(null, false);
   },
   credentials: true,
 }));

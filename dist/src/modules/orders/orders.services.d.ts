@@ -1,0 +1,132 @@
+export declare const orderService: {
+    getOrdersByCustomerId(customerId: string): Promise<{
+        totalAmount: string;
+        placedAt: string;
+        updatedAt: string;
+        items: {
+            unitPrice: string;
+            subtotal: string | null;
+            meal: {
+                price: string;
+                name: string;
+                id: string;
+                createdAt: Date;
+                updatedAt: Date;
+                image: string | null;
+                description: string | null;
+                providerProfileId: string;
+                categoryId: string | null;
+                dietaryTags: string[];
+                isAvailable: boolean;
+            } | null;
+            id: string;
+            orderId: string;
+            mealId: string;
+            quantity: number;
+        }[];
+        providerProfile: {
+            id: string;
+            businessName: string;
+        };
+        status: import("../../../generated/prisma/enums").OrderStatus;
+        id: string;
+        providerProfileId: string;
+        customerId: string;
+        deliveryAddress: string;
+        contactPhone: string | null;
+        paymentMethod: string | null;
+        notes: string | null;
+    }[]>;
+    getOrderById(orderId: string, customerId?: string): Promise<{
+        totalAmount: string;
+        placedAt: string;
+        updatedAt: string;
+        items: {
+            unitPrice: string;
+            subtotal: string | null;
+            meal: {
+                price: string;
+                name: string;
+                id: string;
+                createdAt: Date;
+                updatedAt: Date;
+                image: string | null;
+                description: string | null;
+                providerProfileId: string;
+                categoryId: string | null;
+                dietaryTags: string[];
+                isAvailable: boolean;
+            } | null;
+            id: string;
+            orderId: string;
+            mealId: string;
+            quantity: number;
+        }[];
+        providerProfile: {
+            id: string;
+            businessName: string;
+        };
+        customer: {
+            name: string;
+            id: string;
+            email: string;
+        };
+        status: import("../../../generated/prisma/enums").OrderStatus;
+        id: string;
+        providerProfileId: string;
+        customerId: string;
+        deliveryAddress: string;
+        contactPhone: string | null;
+        paymentMethod: string | null;
+        notes: string | null;
+    } | null>;
+    createOrder(customerId: string, body: {
+        providerProfileId: string;
+        deliveryAddress: string;
+        contactPhone?: string;
+        paymentMethod?: string;
+        notes?: string;
+        items: {
+            mealId: string;
+            quantity: number;
+        }[];
+    }): Promise<{
+        totalAmount: string;
+        placedAt: string;
+        updatedAt: string;
+        items: {
+            unitPrice: string;
+            subtotal: string | null;
+            meal: {
+                price: string;
+                name: string;
+                id: string;
+                createdAt: Date;
+                updatedAt: Date;
+                image: string | null;
+                description: string | null;
+                providerProfileId: string;
+                categoryId: string | null;
+                dietaryTags: string[];
+                isAvailable: boolean;
+            } | null;
+            id: string;
+            orderId: string;
+            mealId: string;
+            quantity: number;
+        }[];
+        providerProfile: {
+            id: string;
+            businessName: string;
+        };
+        status: import("../../../generated/prisma/enums").OrderStatus;
+        id: string;
+        providerProfileId: string;
+        customerId: string;
+        deliveryAddress: string;
+        contactPhone: string | null;
+        paymentMethod: string | null;
+        notes: string | null;
+    }>;
+};
+//# sourceMappingURL=orders.services.d.ts.map

@@ -1,0 +1,23 @@
+# Render Blueprint: Food Hub Backend
+# Deploy: Connect your repo and Render will use this, or set the same in Dashboard manually.
+services:
+  - type: web
+    name: food-hub-backend
+    runtime: node
+    region: singapore
+    plan: free
+
+    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy && npm run build
+    startCommand: npm start
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: BETTER_AUTH_URL
+        sync: false
+      - key: APP_URL
+        sync: false
