@@ -10,7 +10,7 @@ export const authenticate = (...roles) => {
             if (!session) {
                 return res.status(401).json({
                     success: false,
-                    message: "You are not authofized!"
+                    message: "You are not authorized!"
                 });
             }
             if (!session.user.emailVerified) {
