@@ -1,5 +1,3 @@
-# Render Blueprint: Food Hub Backend
-# Deploy: Connect your repo and Render will use this, or set the same in Dashboard manually.
 services:
   - type: web
     name: food-hub-backend
