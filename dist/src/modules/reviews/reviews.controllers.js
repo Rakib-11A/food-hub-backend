@@ -1,5 +1,5 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import * as reviewService from "./reviews.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import * as reviewService from "./reviews.services.js";
 export const getReviewsByMeal = asyncHandler(async (req, res) => {
     const mealId = req.params.mealId;
     if (!mealId) {

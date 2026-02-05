@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 export const providerOrderService = {
     async getOrdersByProviderProfileId(providerProfileId) {
         const orders = await prisma.order.findMany({

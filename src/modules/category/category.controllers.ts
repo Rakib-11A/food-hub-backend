@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import { categoryService } from "./category.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { categoryService } from "./category.services.js";
 
 const getCategories = asyncHandler(async (req: Request, res: Response) => {
   const result = await categoryService.getCategories();

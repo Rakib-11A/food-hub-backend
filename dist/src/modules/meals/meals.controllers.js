@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import { mealService } from "./meals.services";
-import { prisma } from "../../lib/prisma";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { mealService } from "./meals.services.js";
+import { prisma } from "../../lib/prisma.js";
 const createMeal = asyncHandler(async (req, res) => {
     const user = req?.user;
     if (!user) {

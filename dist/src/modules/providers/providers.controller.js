@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import { prisma } from "../../lib/prisma";
-import { providerService } from "./providers.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { prisma } from "../../lib/prisma.js";
+import { providerService } from "./providers.services.js";
 const getProviders = asyncHandler(async (req, res) => {
     const result = await providerService.getProviders();
     res.status(200).json({

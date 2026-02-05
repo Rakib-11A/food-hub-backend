@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import { prisma } from "../../lib/prisma";
-import { providerOrderService } from "./provider-orders.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { prisma } from "../../lib/prisma.js";
+import { providerOrderService } from "./provider-orders.services.js";
 
 const VALID_STATUSES = ["PLACED", "PREPARING", "READY", "DELIVERED", "CANCELLED"] as const;
 

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import * as reviewService from "./reviews.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import * as reviewService from "./reviews.services.js";
 
 export const getReviewsByMeal = asyncHandler(async (req: Request, res: Response) => {
   const mealId = req.params.mealId as string;

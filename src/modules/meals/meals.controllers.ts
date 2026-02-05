@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import { mealService } from "./meals.services";
-import { prisma } from "../../lib/prisma";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { mealService } from "./meals.services.js";
+import { prisma } from "../../lib/prisma.js";
 
 const createMeal = asyncHandler(async (req: Request, res: Response) => {
   const user = req?.user;

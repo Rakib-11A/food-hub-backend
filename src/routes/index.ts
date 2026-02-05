@@ -1,13 +1,13 @@
 import { Router } from "express";
-import categoryRoutes from "../modules/category/category.routes";
-import mealRouters from "../modules/meals/meals.routes";
-import providersRouters from "../modules/providers/providers.routes";
-import providerProfileRoutes from "../modules/provider/provider-profile.routes";
-import providerMealsRoutes from "../modules/provider/provider-meals.routes";
-import providerOrdersRoutes from "../modules/provider/provider-orders.routes";
-import ordersRoutes from "../modules/orders/orders.routes";
-import reviewsRoutes from "../modules/reviews/reviews.routes";
-import adminRoutes from "../modules/admin";
+import categoryRoutes from "../modules/category/category.routes.js";
+import mealRouters from "../modules/meals/meals.routes.js";
+import providersRouters from "../modules/providers/providers.routes.js";
+import providerProfileRoutes from "../modules/provider/provider-profile.routes.js";
+import providerMealsRoutes from "../modules/provider/provider-meals.routes.js";
+import providerOrdersRoutes from "../modules/provider/provider-orders.routes.js";
+import ordersRoutes from "../modules/orders/orders.routes.js";
+import reviewsRoutes from "../modules/reviews/reviews.routes.js";
+import adminRoutes from "../modules/admin/index.js";
 
 const router = Router();
 

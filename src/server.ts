@@ -1,6 +1,6 @@
-import { config } from './config/env';
-import app from './app';
-import { prisma } from './lib/prisma';
+import { config } from './config/env.js';
+import app from './app.js';
+import { prisma } from './lib/prisma.js';
 
 const startServer = async () => {
   try {

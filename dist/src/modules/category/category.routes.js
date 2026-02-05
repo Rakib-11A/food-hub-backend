@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { authenticate } from "../../middlewares/auth.middleware";
-import { categoryController } from "./category.controllers";
-import { UserRole } from "../../interfaces/role.interface";
+import { authenticate } from "../../middlewares/auth.middleware.js";
+import { categoryController } from "./category.controllers.js";
+import { UserRole } from "../../interfaces/role.interface.js";
 const router = Router();
 router.get("/", categoryController.getCategories);
 router.post('/', authenticate(UserRole.ADMIN), categoryController.createCategory);

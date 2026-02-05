@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { UserRole } from "../interfaces/role.interface";
-import { auth } from "../lib/auth";
+import { UserRole } from "../interfaces/role.interface.js";
+import { auth } from "../lib/auth.js";
 import { fromNodeHeaders } from "better-auth/node";
 
 declare global {

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UserRole } from "../interfaces/role.interface";
+import { UserRole } from "../interfaces/role.interface.js";
 declare global {
     namespace Express {
         interface Request {

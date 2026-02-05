@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { mealController } from "./meals.controllers";
+import { mealController } from "./meals.controllers.js";
 const router = Router();
 router.get('/', mealController.getMeals);
 router.get('/:id', mealController.getMealById);

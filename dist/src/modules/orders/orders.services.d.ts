@@ -28,7 +28,7 @@ export declare const orderService: {
             id: string;
             businessName: string;
         };
-        status: import("../../../generated/prisma/enums").OrderStatus;
+        status: import("../../../generated/prisma/enums.js").OrderStatus;
         id: string;
         providerProfileId: string;
         customerId: string;
@@ -71,7 +71,7 @@ export declare const orderService: {
             id: string;
             email: string;
         };
-        status: import("../../../generated/prisma/enums").OrderStatus;
+        status: import("../../../generated/prisma/enums.js").OrderStatus;
         id: string;
         providerProfileId: string;
         customerId: string;
@@ -119,7 +119,7 @@ export declare const orderService: {
             id: string;
             businessName: string;
         };
-        status: import("../../../generated/prisma/enums").OrderStatus;
+        status: import("../../../generated/prisma/enums.js").OrderStatus;
         id: string;
         providerProfileId: string;
         customerId: string;

@@ -1,5 +1,5 @@
-import { prisma } from "../../lib/prisma";
-import type { OrderStatus } from "../../../generated/prisma/client";
+import { prisma } from "../../lib/prisma.js";
+import type { OrderStatus } from "../../../generated/prisma/client.js";
 
 export const providerOrderService = {
   async getOrdersByProviderProfileId(providerProfileId: string) {

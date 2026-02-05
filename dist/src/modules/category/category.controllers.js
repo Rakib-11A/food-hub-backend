@@ -1,5 +1,5 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import { categoryService } from "./category.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { categoryService } from "./category.services.js";
 const getCategories = asyncHandler(async (req, res) => {
     const result = await categoryService.getCategories();
     res.status(200).json({

@@ -1,19 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import { toNodeHandler } from "better-auth/node";
-import { auth } from './lib/auth';
-import { config } from './config/env';
-import routes from './routes';
-import { errorHandler } from './middlewares/error.middleware';
-import { notFound } from './middlewares/notFount.middleware';
-import { authenticate } from './middlewares/auth.middleware';
+import { auth } from './lib/auth.js';
+import { config } from './config/env.js';
+import routes from './routes/index.js';
+import { errorHandler } from './middlewares/error.middleware.js';
+import { notFound } from './middlewares/notFount.middleware.js';
+import { authenticate } from './middlewares/auth.middleware.js';
 const app = express();
 const allowedOrigins = config.appUrl
     ? config.appUrl.split(",").map((o) => o.trim()).filter(Boolean)
     : ["http://localhost:3000"];
 app.use(cors({
     origin: (origin, cb) => {
-        if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some((o) => origin?.endsWith(".vercel.app")))
+        if (!origin || allowedOrigins.includes(origin))
+            cb(null, true);
+        else if (origin?.endsWith(".vercel.app") || origin?.endsWith(".onrender.com"))
             cb(null, true);
         else
             cb(null, false);

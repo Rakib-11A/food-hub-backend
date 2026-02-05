@@ -1,10 +1,10 @@
-import type { UserStatus } from "../../../generated/prisma/client";
+import type { UserStatus } from "../../../generated/prisma/client.js";
 export declare const adminService: {
     getUsers(): Promise<{
         createdAt: string;
         updatedAt: string;
         name: string;
-        role: import("../../../generated/prisma/enums").UserRole;
+        role: import("../../../generated/prisma/enums.js").UserRole;
         status: UserStatus;
         id: string;
         email: string;
@@ -12,7 +12,7 @@ export declare const adminService: {
     }[]>;
     updateUserStatus(userId: string, status: UserStatus): Promise<{
         name: string;
-        role: import("../../../generated/prisma/enums").UserRole;
+        role: import("../../../generated/prisma/enums.js").UserRole;
         status: UserStatus;
         id: string;
         createdAt: Date;
@@ -54,7 +54,7 @@ export declare const adminService: {
             id: string;
             email: string;
         };
-        status: import("../../../generated/prisma/enums").OrderStatus;
+        status: import("../../../generated/prisma/enums.js").OrderStatus;
         id: string;
         providerProfileId: string;
         customerId: string;

@@ -1,18 +1,15 @@
-import { config } from './config/env';
-import app from './app';
-import { prisma } from './lib/prisma';
+import { config } from './config/env.js';
+import app from './app.js';
+import { prisma } from './lib/prisma.js';
 const startServer = async () => {
     try {
         // Initialize database
         await prisma.$connect();
-        console.log("Prisma connected successfully....");
-        // Start server
-        if (config.nodeEnv !== 'production') {
-            app.listen(config.port, () => {
-                console.log(`🚀 Server running on port ${config.port}`);
-                console.log(`🔗 API URL: http://localhost:${config.port}`);
-            });
-        }
+        console.log("Prisma connected successfully.");
+        const port = config.port;
+        app.listen(port, () => {
+            console.log(`🚀 Server running on port ${port}`);
+        });
     }
     catch (error) {
         console.error('Failed to start server:', error);

@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../lib/prisma.js";
 export async function getReviewsByMealId(mealId) {
     return prisma.review.findMany({
         where: { mealId },

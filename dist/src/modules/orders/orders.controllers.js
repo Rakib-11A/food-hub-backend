@@ -1,5 +1,5 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import { orderService } from "./orders.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { orderService } from "./orders.services.js";
 export const orderController = {
     getMyOrders: asyncHandler(async (req, res) => {
         const user = req.user;

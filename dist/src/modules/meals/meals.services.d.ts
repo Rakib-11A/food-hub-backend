@@ -1,4 +1,4 @@
-import { Meal } from "../../../generated/prisma/client";
+import { Meal } from "../../../generated/prisma/client.js";
 type MealCreateInput = Omit<Meal, "id" | "createdAt" | "updatedAt">;
 type MealUpdateInput = Partial<Pick<Meal, "name" | "description" | "price" | "image" | "dietaryTags" | "categoryId" | "isAvailable">>;
 export declare const mealService: {

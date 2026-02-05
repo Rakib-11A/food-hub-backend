@@ -1,5 +1,5 @@
-import { asyncHandler } from "../../utils/asyncHandler";
-import { adminService } from "./admin.services";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { adminService } from "./admin.services.js";
 export const adminController = {
     getUsers: asyncHandler(async (_req, res) => {
         const users = await adminService.getUsers();

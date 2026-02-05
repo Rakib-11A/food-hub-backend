@@ -1,4 +1,4 @@
-import type { OrderStatus } from "../../../generated/prisma/client";
+import type { OrderStatus } from "../../../generated/prisma/client.js";
 export declare const providerOrderService: {
     getOrdersByProviderProfileId(providerProfileId: string): Promise<{
         totalAmount: string;
