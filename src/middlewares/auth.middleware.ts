@@ -19,7 +19,6 @@ declare global {
 
 export const authenticate = (...roles: UserRole[]) => {
     return async(req: Request, res: Response, next: NextFunction) => {
-        console.log("Authenticate Middleware.....called");
         // get user session
         try{
             const session = await auth.api.getSession({
@@ -54,7 +53,6 @@ export const authenticate = (...roles: UserRole[]) => {
                     message: "Forbiden! You don't have permission to access this resource"
                 });
             }
-            console.log(session.user.role);
             next();
 
         }catch(error){
