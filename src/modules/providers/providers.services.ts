@@ -9,7 +9,13 @@ export const providerService = {
   async getProviderById(id: string) {
     return prisma.providerProfile.findUnique({
       where: { id },
-      include: { user: { select: { name: true, email: true } } },
+      include: {
+        user: { select: { name: true, email: true } },
+        meals: {
+          where: { isAvailable: true },
+          include: { category: { select: { id: true, name: true } } },
+        },
+      },
     });
   },
   async createProviderProfile(

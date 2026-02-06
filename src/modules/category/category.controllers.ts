@@ -14,7 +14,7 @@ const getCategories = asyncHandler(async (req: Request, res: Response) => {
 const createCategory = asyncHandler(async (req: Request, res: Response) => {
   const result = await categoryService.createCategory(req.body)
   res.status(201).json({
-    success: false,
+    success: true,
     message: "Category created",
     data: result
   })
