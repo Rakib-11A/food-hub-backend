@@ -67,6 +67,18 @@ const getMeals = async (
     });
 }
 
+const getMealsByProviderProfileId = async (providerProfileId: string) => {
+    return await prisma.meal.findMany({
+        where: { providerProfileId },
+        include: {
+            category: {
+                select: { id: true, name: true },
+            },
+        },
+        orderBy: { createdAt: "desc" },
+    });
+};
+
 const getMealById = async ( id: string ) => {
     return await prisma.meal.findUnique({
         where: {
@@ -119,6 +131,7 @@ const deleteMeal = async (id: string, providerProfileId: string) => {
 export const mealService = {
     createMeal,
     getMeals,
+    getMealsByProviderProfileId,
     getMealById,
     updateMeal,
     deleteMeal

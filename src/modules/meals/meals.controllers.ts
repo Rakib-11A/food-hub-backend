@@ -116,11 +116,38 @@ const deleteMeal = asyncHandler(async (req: Request, res: Response) => {
     message: "Meal removed",
     data: result
   })
-})
+});
+
+const getMyMeals = asyncHandler(async (req: Request, res: Response) => {
+  const user = req?.user;
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized!",
+    });
+  }
+  const profile = await prisma.providerProfile.findUnique({
+    where: { userId: user.id },
+  });
+  if (!profile) {
+    return res.status(404).json({
+      success: false,
+      message: "Provider profile not found. Create a provider profile first.",
+    });
+  }
+  const result = await mealService.getMealsByProviderProfileId(profile.id);
+  res.status(200).json({
+    success: true,
+    message: "Meals fetched",
+    data: result,
+  });
+});
+
 export const mealController = {
     createMeal,
     getMeals,
     getMealById,
+    getMyMeals,
     updateMeal,
     deleteMeal
 }
