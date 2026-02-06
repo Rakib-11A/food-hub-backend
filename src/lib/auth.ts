@@ -56,12 +56,11 @@ export const auth = betterAuth({
     },
     emailAndPassword: { 
         enabled: true, 
-        autoSignIn: false,
-        requireEmailVerification: true
+        autoSignIn: true,
+        requireEmailVerification: false,
     },
     emailVerification: {
-        
-        sendOnSignUp: true,
+        sendOnSignUp: false,
         autoSignInAfterVerification: true,
         sendVerificationEmail: async ({user, url, token}, request) => {
             console.log("Sending verification email to:", user.email);
