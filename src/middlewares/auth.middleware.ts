@@ -48,8 +48,12 @@ export const authenticate = (...roles: UserRole[]) => {
             }
             next();
 
-        }catch(error){
-            console.log("X Error: ", error);
+        } catch (error) {
+            console.error("Auth middleware error:", error);
+            return res.status(500).json({
+                success: false,
+                message: "Authentication failed",
+            });
         }
-    }
+    };
 }
