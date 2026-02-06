@@ -21,6 +21,10 @@ const trustedOrigins: string[] = config.appUrl
 if (!trustedOrigins.some((o) => o.includes("vercel.app"))) {
   trustedOrigins.push("https://*.vercel.app");
 }
+// Allow all Render frontend deployments
+if (!trustedOrigins.some((o) => o.includes("onrender.com"))) {
+  trustedOrigins.push("https://*.onrender.com");
+}
 if (!trustedOrigins.includes("http://localhost:3000")) {
   trustedOrigins.push("http://localhost:3000");
 }
